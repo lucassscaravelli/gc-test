@@ -6,7 +6,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// Tournament é o modelo que representa um torneio
 type Tournament struct {
 	gorm.Model
 
@@ -14,13 +13,10 @@ type Tournament struct {
 	Description string `json:"description"`
 }
 
-// GetID retorna o id do model
 func (t *Tournament) GetID() uint {
 	return t.ID
 }
 
-// Validate retorna um erro caso o schema
-// não for válido
 func (t *Tournament) Validate() error {
 
 	if t.Name == "" || t.Description == "" {
@@ -28,8 +24,4 @@ func (t *Tournament) Validate() error {
 	}
 
 	return nil
-}
-
-func (t *Tournament) GetGroupStage() (gs *GroupStage, err error) {
-	return
 }

@@ -91,7 +91,7 @@ func (s *Server) startGroupStage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := groupStage.Start(); err != nil {
+	if err := tournament.NewGroupStageService().RunGroupStage(groupStage); err != nil {
 		helper.HandleError("/tournaments/<id>/group_stage/start [POST]", errGetGroupStage, w)
 		return
 	}

@@ -2,7 +2,6 @@ package tournament
 
 import (
 	"gctest/errors"
-	"math/rand"
 
 	"github.com/jinzhu/gorm"
 )
@@ -37,35 +36,6 @@ func (m *Match) Validate() error {
 	}
 
 	return nil
-}
-
-func (m *Match) Play() error {
-
-	hostPoints := 0
-	visitorPoints := 0
-
-	for i := 0; i < 30 && hostPoints < 16 && visitorPoints < 16; i++ {
-
-		if rand.Intn(2) == 0 {
-			hostPoints++
-		} else {
-			visitorPoints++
-		}
-
-	}
-
-	// no caso de 15 a 15 para nao impatar :P
-	if hostPoints == visitorPoints {
-		hostPoints = 14
-		visitorPoints = 16
-	}
-
-	m.HostScore = hostPoints
-	m.VisitorScore = visitorPoints
-
-	_, err := NewMatchService().UpdateMatch(m)
-
-	return err
 }
 
 func (m *Match) GetWinner() (uint, int) {

@@ -7,17 +7,16 @@ import (
 )
 
 type GroupStage struct {
-	// stage.Stage
 	gorm.Model
 
 	Tournament      Tournament `gorm:"foreignkey:TournamentRefer"`
 	TournamentRefer uint
-	// Groups []*teamgroup.TeamGroup `json:"teamGroups"`
 }
 
 type groupStageTable struct {
 	GroupName string
 	Table     []groupLine
+	Matches   []matchInfo
 }
 
 type groupLine struct {
@@ -27,6 +26,16 @@ type groupLine struct {
 	TeamTag       string
 	TeamRoundWins int
 	TeamPoints    int
+}
+
+type matchInfo struct {
+	HostID    uint
+	HostTag   string
+	HostScore int
+
+	VisitorID    uint
+	VisitorTag   string
+	VisitorScore int
 }
 
 // GetID retorna o id do model
@@ -43,26 +52,6 @@ func (gs *GroupStage) Validate() error {
 	// }
 
 	return nil
-}
-
-func (gs *GroupStage) Start() (err error) {
-
-	// simular as partidas
-	matchesOfGs, err := NewMatchService().GetAllByGroupStageID(gs.ID)
-
-	if err != nil {
-		return err
-	}
-
-	for _, match := range matchesOfGs {
-		err = match.Play()
-
-		if err != nil {
-			return err
-		}
-	}
-
-	return err
 }
 
 func (gs *GroupStage) GetTable() (resultTable []*groupStageTable, err error) {
@@ -113,9 +102,18 @@ func (gs *GroupStage) GetTable() (resultTable []*groupStageTable, err error) {
 			for j, line := range groupTable.Table {
 
 				if line.TeamID == winnerTeamID {
-
 					resultList[i].Table[j].TeamPoints++
 					resultList[i].Table[j].TeamRoundWins += winnerScore
+
+					resultList[i].Matches = append(resultList[i].Matches, matchInfo{
+						HostID:    match.HostTeamRefer,
+						HostScore: match.HostScore,
+						HostTag:   match.HostTeam.Tag,
+
+						VisitorID:    match.VisitorTeamRefer,
+						VisitorScore: match.VisitorScore,
+						VisitorTag:   match.VisitorTeam.Tag,
+					})
 				}
 
 				if line.TeamID == loserTeamID {

@@ -1,11 +1,9 @@
 package tournament
 
-// GroupStageService representa o service de um torneio
 type GroupStageService struct {
 	rep *GroupStageRepository
 }
 
-// NewService cria um novo serviço de torneios
 func NewGroupStageService() *GroupStageService {
 	service := GroupStageService{NewGroupStageRepository()}
 
@@ -38,6 +36,27 @@ func (s *GroupStageService) CreateGroupStage(t *Tournament) (gs *GroupStage, err
 
 	// criar partidas a partir dos grupos
 	_, err = s.generateMatchesFromGroups(gs, groupStageGoups)
+
+	return
+}
+
+func (s *GroupStageService) RunGroupStage(gs *GroupStage) (err error) {
+
+	ms := NewMatchService()
+
+	matchesOfGs, err := ms.GetAllByGroupStageID(gs.ID)
+
+	if err != nil {
+		return err
+	}
+
+	for _, match := range matchesOfGs {
+		_, err = ms.RunMatch(match)
+
+		if err != nil {
+			return err
+		}
+	}
 
 	return
 }
