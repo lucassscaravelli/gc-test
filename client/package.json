@@ -1,0 +1,50 @@
+{
+  "name": "sfpdashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/Test/**",
+      "!**/Mock/**",
+      "!**/*index.js",
+      "!**/*webpack.config.js",
+      "!**/coverage/**"
+    ],
+    "coverageDirectory": "coverage",
+    "setupFilesAfterEnv": [
+      "./src/Test/setupFilesAfterEnv"
+    ]
+  },
+  "dependencies": {
+    "antd": "^3.13.5",
+    "axios": "^0.18.0",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.2.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "reflux": "^6.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.1.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "file-loader": "^3.0.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.0"
+  },
+  "scripts": {
+    "build": "webpack --mode production"
+  }
+}

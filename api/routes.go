@@ -1,5 +1,10 @@
 package api
 
+import (
+	"net/http"
+	"path"
+)
+
 func (s *Server) routes() {
 	s.mux.HandleFunc("/tournaments", s.getAllTournaments).Methods("GET")
 	s.mux.HandleFunc("/tournaments", s.createTournament).Methods("POST")
@@ -11,4 +16,7 @@ func (s *Server) routes() {
 
 	s.mux.HandleFunc("/tournaments/{id}/playoff_stage/table", s.getPlayoffTable).Methods("GET")
 	s.mux.HandleFunc("/tournaments/{id}/playoff_stage/run_next_phase", s.runPlayoffNextPhase).Methods("POST")
+
+	// site
+	s.mux.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(path.Dir("./client/dist/")))))
 }
