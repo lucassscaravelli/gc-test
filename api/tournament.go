@@ -194,6 +194,7 @@ func (s *Server) runPlayoffNextPhase(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		helper.HandleError("get playoff table", err, w)
+		return
 	}
 
 	json.NewEncoder(w).Encode(playoffStage)

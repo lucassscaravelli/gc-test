@@ -27,7 +27,9 @@ export default class Tournaments extends React.Component {
       return;
     }
 
-    const id = selectedID[0];
+    console.log('selectedID', selectedID)
+
+    const id = selectedID;
     this.getTournamentDetails(id);
   }
 
@@ -139,6 +141,8 @@ export default class Tournaments extends React.Component {
       })
       .catch(err => {
         this.setState({ isLoading: false });
+
+        console.log('err.response.data', err.response.data)
 
         notification.open({
           message: "Ocorreu um erro",

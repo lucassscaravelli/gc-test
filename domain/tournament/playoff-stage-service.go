@@ -174,8 +174,10 @@ func (s *PlayoffStageService) RunNextPhase(playoffStage *PlayoffStage) (err erro
 	// obter a tabela com dados formatados do playoff
 	table, err := s.GetTable(playoffStage)
 
-	// identificar qual fase esta
-	if len(table.Octaves) == 0 {
+	// identificar a fase de grupo que esta
+	if len(table.FirstPhase) == 0 {
+		return errors.GroupStageHasNotInitiaized
+	} else if len(table.Octaves) == 0 {
 		err = s.runPhase(playoffStage, playoffStage.FirstPhaseSeeds, OctavesPhase)
 	} else if len(table.Quarter) == 0 {
 		err = s.runPhase(playoffStage, playoffStage.OctavesSeeds, QuarterPhase)
