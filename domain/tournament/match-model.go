@@ -20,6 +20,9 @@ type Match struct {
 
 	GroupStage      GroupStage `gorm:"foreignkey:GroupStageRefer"`
 	GroupStageRefer uint
+
+	TeamBracket      TeamBracket `gorm:"foreignkey:TeamBracketRefer"`
+	TeamBracketRefer uint
 }
 
 // GetID retorna o id do model
@@ -38,28 +41,28 @@ func (m *Match) Validate() error {
 	return nil
 }
 
-func (m *Match) GetWinner() (uint, int) {
+func (m *Match) GetWinner() (*Team, int) {
 	if m.HostScore == 0 && m.VisitorScore == 0 {
-		return 0, 0
+		return nil, 0
 	}
 
 	if m.HostScore > m.VisitorScore {
-		return m.HostTeamRefer, m.HostScore
+		return &m.HostTeam, m.HostScore
 	} else {
-		return m.VisitorTeamRefer, m.VisitorScore
+		return &m.VisitorTeam, m.VisitorScore
 	}
 
 }
 
-func (m *Match) GetLoser() (uint, int) {
+func (m *Match) GetLoser() (*Team, int) {
 	if m.HostScore == 0 && m.VisitorScore == 0 {
-		return 0, 0
+		return nil, 0
 	}
 
 	if m.HostScore < m.VisitorScore {
-		return m.HostTeamRefer, m.HostScore
+		return &m.HostTeam, m.HostScore
 	} else {
-		return m.VisitorTeamRefer, m.VisitorScore
+		return &m.VisitorTeam, m.VisitorScore
 	}
 
 }

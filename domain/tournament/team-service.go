@@ -3,7 +3,6 @@ package tournament
 import (
 	"fmt"
 	"math/rand"
-	"strings"
 )
 
 // TeamService representa o service de um time
@@ -17,6 +16,8 @@ var prefixNameList = []string{
 	"Kings Of",
 	"Sons Of",
 	"Lords Of",
+	"Masters of",
+	"Brothers of",
 }
 
 var nameList = []string{
@@ -30,6 +31,8 @@ var nameList = []string{
 }
 
 var sufixNameLIst = []string{
+	"Kingdom",
+	"from Vahalla",
 	"Squad",
 	"Team",
 	"Org",
@@ -53,6 +56,12 @@ func (s *TeamService) GetTeamsByGroupID(ID uint) (t []*Team, err error) {
 	return
 }
 
+func (s *TeamService) GetTeamByID(ID uint) (t *Team, err error) {
+	t = &Team{}
+	t, err = s.rep.FindFirst("id = ?", ID)
+	return
+}
+
 func (s *TeamService) GetTeamsForNewTournament(count int) (t []*Team, err error) {
 	t, err = s.GetAllTeams()
 
@@ -69,8 +78,7 @@ func (s *TeamService) GetTeamsForNewTournament(count int) (t []*Team, err error)
 
 func (s *TeamService) generateRandomTeams(count int) error {
 	for i := 0; i < count; i++ {
-		tName := getRandomName()
-		tTag := strings.ToUpper(tName[0:3])
+		tName, tTag := getRandomNameAndTag()
 		tColor := getRandomColor()
 
 		newTeam := &Team{
@@ -93,12 +101,13 @@ func (s *TeamService) CreateTeam(newTeam *Team) (t *Team, err error) {
 	return
 }
 
-func getRandomName() string {
+func getRandomNameAndTag() (string, string) {
 	iPrefix := rand.Intn(len(prefixNameList))
 	iName := rand.Intn(len(nameList))
 	iSufix := rand.Intn(len(sufixNameLIst))
 
-	return fmt.Sprintf("%s %s %s", prefixNameList[iPrefix], nameList[iName], sufixNameLIst[iSufix])
+	return fmt.Sprintf("%s %s %s", prefixNameList[iPrefix], nameList[iName], sufixNameLIst[iSufix]),
+		fmt.Sprintf("%c%c%c", prefixNameList[iPrefix][0], nameList[iName][0], sufixNameLIst[iSufix][0])
 }
 
 func getRandomColor() string {

@@ -96,7 +96,16 @@ func (gr GormRepository) FindByID(receiver domaincore.IModel, id uint) (err erro
 }
 
 func (gr GormRepository) FindFirst(receiver domaincore.IModel, where string, args ...interface{}) error {
-	return gr.Db.Where(where, args...).Limit(1).Find(receiver).Error
+	err := gr.Db.Where(where, args...).Limit(1).Find(receiver).Error
+
+	if err != nil {
+		if strings.ContainsAny(err.Error(), "record not found") {
+			receiver = nil
+			return nil
+		}
+	}
+
+	return err
 }
 
 func (gr GormRepository) FindAll(models interface{}, where string, args ...interface{}) (err error) {

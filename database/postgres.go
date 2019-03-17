@@ -14,7 +14,10 @@ type Database struct {
 	Instance *gorm.DB
 }
 
-var models = []interface{}{(*tournament.Tournament)(nil), (*tournament.GroupStage)(nil), (*tournament.Team)(nil), (*tournament.TeamGroup)(nil), (*tournament.Match)(nil)}
+var models = []interface{}{(*tournament.TeamBracket)(nil),
+	(*tournament.PlayoffStage)(nil), (*tournament.Tournament)(nil),
+	(*tournament.GroupStage)(nil), (*tournament.Team)(nil),
+	(*tournament.TeamGroup)(nil), (*tournament.Match)(nil)}
 
 // InitializePgDatabase inicializa o banco de dados, cria as tabelas
 // e retorna um possivel erro

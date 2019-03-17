@@ -18,3 +18,9 @@ func (s *PlayoffStageRepository) Insert(newPlayoffStage *PlayoffStage) (m *Playo
 	err = s.IRepository.Insert(m)
 	return
 }
+
+func (s *PlayoffStageRepository) First(where string, args ...interface{}) (m *PlayoffStage, err error) {
+	m = &PlayoffStage{}
+	err = s.IRepository.FindFirst(m, where, args...)
+	return
+}

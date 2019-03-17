@@ -25,6 +25,13 @@ func (gtr *GroupStageRepository) FindByID(id uint) (gs *GroupStage, err error) {
 func (gtr *GroupStageRepository) FindFirst(where string, args ...interface{}) (gs *GroupStage, err error) {
 	gs = &GroupStage{}
 	err = gtr.IRepository.FindFirst(gs, where, args...)
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = gtr.IRepository.Preload(gs, "Tournament")
+
 	return
 }
 

@@ -14,6 +14,7 @@ type Team struct {
 	Color string `json:"color"`
 
 	TeamGroup []*TeamGroup `gorm:"many2many:group_teams"`
+	// TeamBracket []*TeamBracket `gorm:"many2many:bracket_teams"`
 }
 
 // GetID retorna o id do model

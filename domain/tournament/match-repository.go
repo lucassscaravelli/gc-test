@@ -33,3 +33,9 @@ func (ts *MatchRepository) Update(match *Match) (m *Match, err error) {
 	err = ts.IRepository.Update(m)
 	return
 }
+
+func (ts *MatchRepository) FindFirst(where string, args ...interface{}) (m *Match, err error) {
+	m = &Match{}
+	err = ts.IRepository.FindFirst(m, where, args...)
+	return
+}

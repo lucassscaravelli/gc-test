@@ -9,6 +9,20 @@ type PlayoffStage struct {
 
 	Tournament      Tournament `gorm:"foreignkey:TournamentRefer"`
 	TournamentRefer uint
+
+	FirstPhaseSeeds *TeamBracket
+	OctavesSeeds    *TeamBracket
+	Quartereeds     *TeamBracket
+	SemiSeeds       *TeamBracket
+	FinalSeed       *TeamBracket
+}
+
+type playoffTable struct {
+	FirstPhase []matchInfo
+	Octaves    []matchInfo
+	Quarter    []matchInfo
+	Semi       []matchInfo
+	Final      []matchInfo
 }
 
 func (gs *PlayoffStage) GetID() uint {

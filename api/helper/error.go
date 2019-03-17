@@ -20,6 +20,8 @@ func getErrorCode(err error) int {
 		return http.StatusInternalServerError
 	} else if err == errors.NotFound {
 		return http.StatusNotFound
+	} else if err == errors.GroupStageAlreadyFinished {
+		return http.StatusConflict
 	}
 
 	return 500

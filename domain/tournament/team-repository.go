@@ -34,3 +34,9 @@ func (s *TeamRepository) Insert(newTournament *Team) (t *Team, err error) {
 	err = s.IRepository.Insert(t)
 	return
 }
+
+func (tr *TeamRepository) FindFirst(where string, args ...interface{}) (t *Team, err error) {
+	t = &Team{}
+	err = tr.IRepository.FindFirst(t, where, args...)
+	return
+}
