@@ -15,7 +15,7 @@
 * Visualizar a tabela de grupos e suas partidas (clicando no botão no card do grupo)
 * Avançar a fase do playoff clicando no botão que contem a instrução até a partida final, e visualizar os resultados
 
-## Observações:
+### Observações:
 
 * Os times são gerados aleatoriamente (na criação do primeiro torneio)
 
