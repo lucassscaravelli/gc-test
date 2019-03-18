@@ -5,7 +5,6 @@ import (
 	"math/rand"
 )
 
-// TeamService representa o service de um time
 type TeamService struct {
 	rep *TeamRepository
 }
@@ -18,6 +17,7 @@ var prefixNameList = []string{
 	"Lords Of",
 	"Masters of",
 	"Brothers of",
+	"Happy",
 }
 
 var nameList = []string{
@@ -28,24 +28,26 @@ var nameList = []string{
 	"Odin",
 	"Marvel",
 	"Dust_2",
+	"Brazil",
+	"America",
+	"Aliens",
 }
 
 var sufixNameLIst = []string{
 	"Kingdom",
-	"from Vahalla",
+	"Alliance",
+	"Initiative",
 	"Squad",
 	"Team",
 	"Org",
 }
 
-// NewService cria um novo serviço de times
 func NewTeamService() *TeamService {
 	service := TeamService{NewTeamRepository()}
 
 	return &service
 }
 
-// GetAllTeams retorna todos os times
 func (s *TeamService) GetAllTeams() (t []*Team, err error) {
 	t, err = s.rep.FindAll("")
 	return
@@ -95,7 +97,6 @@ func (s *TeamService) generateRandomTeams(count int) error {
 	return nil
 }
 
-// CreateTeam cria um time
 func (s *TeamService) CreateTeam(newTeam *Team) (t *Team, err error) {
 	t, err = s.rep.Insert(newTeam)
 	return

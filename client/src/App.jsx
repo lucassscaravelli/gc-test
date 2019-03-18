@@ -28,6 +28,7 @@ class App extends React.Component {
   }
 
   loadTournaments() {
+
     this.setState({ isLoading: true });
     axios
       .get("/tournaments")
@@ -43,12 +44,12 @@ class App extends React.Component {
     return (
       <Layout>
         <Header>
-          <h1>Teste - Gamers Club</h1>
+          <h1 className="h1-header">Teste - Gamers Club</h1>
         </Header>
         <Content>
           <div className="container form">
             <CreateTournament
-              isLodaing={isLoading}
+              isLoading={isLoading}
               callback={this.loadTournaments}
             />
           </div>
@@ -57,7 +58,7 @@ class App extends React.Component {
             {isLoading ? <Spin /> : <Tournaments tournaments={tournaments} />}
           </div>
         </Content>
-        <Footer>Footer</Footer>
+        <Footer>Criado por Lucas Savioli Scaravelli</Footer>
       </Layout>
     );
   }

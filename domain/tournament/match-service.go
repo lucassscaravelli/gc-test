@@ -2,12 +2,10 @@ package tournament
 
 import "math/rand"
 
-// MatchService representa o service de um torneio
 type MatchService struct {
 	rep *MatchRepository
 }
 
-// NewService cria um novo serviço de torneios
 func NewMatchService() *MatchService {
 	service := MatchService{NewMatchRepository()}
 

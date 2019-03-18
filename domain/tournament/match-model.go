@@ -25,13 +25,10 @@ type Match struct {
 	TeamBracketRefer uint
 }
 
-// GetID retorna o id do model
 func (m *Match) GetID() uint {
 	return m.ID
 }
 
-// Validate retorna um erro caso o schema
-// não for válido
 func (m *Match) Validate() error {
 
 	if m.VisitorScore < 0 || m.HostScore < 0 {

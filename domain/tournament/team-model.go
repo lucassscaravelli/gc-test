@@ -14,16 +14,12 @@ type Team struct {
 	Color string `json:"color"`
 
 	TeamGroup []*TeamGroup `gorm:"many2many:group_teams"`
-	// TeamBracket []*TeamBracket `gorm:"many2many:bracket_teams"`
 }
 
-// GetID retorna o id do model
 func (t *Team) GetID() uint {
 	return t.ID
 }
 
-// Validate retorna um erro caso o schema
-// não for válido
 func (t *Team) Validate() error {
 
 	if t.Name == "" || t.Tag == "" || t.Color == "" {

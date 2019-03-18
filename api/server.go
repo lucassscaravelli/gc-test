@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Server representa a estrutura da api
 type Server struct {
 	mux *mux.Router
 }

@@ -33,14 +33,14 @@ func (s *Server) createTournament(w http.ResponseWriter, r *http.Request) {
 	decodeError := decoder.Decode(&newTournament)
 
 	if decodeError != nil {
-		helper.HandleError("/tournaments/ [POST]", errors.BadRequest, w)
+		helper.HandleError("create tournament", errors.BadRequest, w)
 		return
 	}
 
 	newTournamentResult, bdError := tournament.NewTournamentService().CreateTournament(&newTournament)
 
 	if bdError != nil {
-		helper.HandleError("/tournaments/ [POST]", bdError, w)
+		helper.HandleError("create tournament", bdError, w)
 		return
 	}
 
@@ -53,14 +53,14 @@ func (s *Server) getTournament(w http.ResponseWriter, r *http.Request) {
 	id, parseError := strconv.ParseUint(vars["id"], 10, 32)
 
 	if parseError != nil {
-		helper.HandleError("/tournaments/<id> [GET]", errors.BadRequest, w)
+		helper.HandleError("get tournament", errors.BadRequest, w)
 		return
 	}
 
 	tournament, err := tournament.NewTournamentService().GetTournamentByID(uint(id))
 
 	if err != nil {
-		helper.HandleError("/tournaments/<id> [GET]", err, w)
+		helper.HandleError("get tournament", err, w)
 		return
 	}
 
@@ -73,21 +73,21 @@ func (s *Server) startGroupStage(w http.ResponseWriter, r *http.Request) {
 	id, parseError := strconv.ParseUint(vars["id"], 10, 32)
 
 	if parseError != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/start [POST]", errors.BadRequest, w)
+		helper.HandleError("start group stage", errors.BadRequest, w)
 		return
 	}
 
 	t, errFindTournament := tournament.NewTournamentService().GetTournamentByID(uint(id))
 
 	if errFindTournament != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/start [POST]", errFindTournament, w)
+		helper.HandleError("start group stage", errFindTournament, w)
 		return
 	}
 
 	groupStage, errGetGroupStage := tournament.NewGroupStageService().GetGroupStageByTournamentID(t.GetID())
 
 	if errGetGroupStage != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/start [POST]", errGetGroupStage, w)
+		helper.HandleError("start group stage", errGetGroupStage, w)
 		return
 	}
 
@@ -105,28 +105,28 @@ func (s *Server) getGroupStageTable(w http.ResponseWriter, r *http.Request) {
 	id, parseError := strconv.ParseUint(vars["id"], 10, 32)
 
 	if parseError != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errors.BadRequest, w)
+		helper.HandleError("get group stage table", errors.BadRequest, w)
 		return
 	}
 
 	t, errFindTournament := tournament.NewTournamentService().GetTournamentByID(uint(id))
 
 	if errFindTournament != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errFindTournament, w)
+		helper.HandleError("get group stage table", errFindTournament, w)
 		return
 	}
 
 	groupStage, errGetGroupStage := tournament.NewGroupStageService().GetGroupStageByTournamentID(t.GetID())
 
 	if errGetGroupStage != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errGetGroupStage, w)
+		helper.HandleError("get group stage table", errGetGroupStage, w)
 		return
 	}
 
 	table, errGetTable := tournament.NewGroupStageService().GetTableResults(groupStage)
 
 	if errGetTable != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errGetTable, w)
+		helper.HandleError("get group stage table", errGetTable, w)
 		return
 	}
 
@@ -139,14 +139,14 @@ func (s *Server) getPlayoffTable(w http.ResponseWriter, r *http.Request) {
 	id, parseError := strconv.ParseUint(vars["id"], 10, 32)
 
 	if parseError != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errors.BadRequest, w)
+		helper.HandleError("get playoff table", errors.BadRequest, w)
 		return
 	}
 
 	t, errFindTournament := tournament.NewTournamentService().GetTournamentByID(uint(id))
 
 	if errFindTournament != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errFindTournament, w)
+		helper.HandleError("get playoff table", errFindTournament, w)
 		return
 	}
 
@@ -161,6 +161,7 @@ func (s *Server) getPlayoffTable(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		helper.HandleError("get playoff table", err, w)
+		return
 	}
 
 	json.NewEncoder(w).Encode(playOffTable)
@@ -172,14 +173,14 @@ func (s *Server) runPlayoffNextPhase(w http.ResponseWriter, r *http.Request) {
 	id, parseError := strconv.ParseUint(vars["id"], 10, 32)
 
 	if parseError != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errors.BadRequest, w)
+		helper.HandleError("run playoff next phase", errors.BadRequest, w)
 		return
 	}
 
 	t, errFindTournament := tournament.NewTournamentService().GetTournamentByID(uint(id))
 
 	if errFindTournament != nil {
-		helper.HandleError("/tournaments/<id>/group_stage/table [GET]", errFindTournament, w)
+		helper.HandleError("run playoff next phase", errFindTournament, w)
 		return
 	}
 

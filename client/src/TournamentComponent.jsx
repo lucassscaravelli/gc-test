@@ -27,8 +27,6 @@ export default class Tournaments extends React.Component {
       return;
     }
 
-    console.log('selectedID', selectedID)
-
     const id = selectedID;
     this.getTournamentDetails(id);
   }
@@ -71,8 +69,6 @@ export default class Tournaments extends React.Component {
             Avançar playoff
           </Button>
         </div>
-
-        {/* <p>{JSON.stringify(playoffStage)}</p> */}
 
         <div className="playoff-table">
           <div className="bracket">
@@ -142,7 +138,7 @@ export default class Tournaments extends React.Component {
       .catch(err => {
         this.setState({ isLoading: false });
 
-        console.log('err.response.data', err.response.data)
+        console.log("err.response.data", err.response.data);
 
         notification.open({
           message: "Ocorreu um erro",
@@ -199,42 +195,7 @@ export default class Tournaments extends React.Component {
                   {group.Matches && (
                     <Popover
                       trigger="click"
-                      content={
-                        <table>
-                          {group.Matches.map(
-                            ({
-                              HostTag,
-                              HostScore,
-                              HostColor,
-                              VisitorTag,
-                              VisitorScore,
-                              VisitorColor
-                            }) => {
-                              return (
-                                <tr key={HostTag + VisitorTag}>
-                                  <td
-                                    style={{
-                                      background: HostColor,
-                                      width: "5%"
-                                    }}
-                                  />
-                                  <td>{HostTag}</td>
-                                  <td>{HostScore}</td>
-                                  <td>X</td>
-                                  <td>{VisitorScore}</td>
-                                  <td>{VisitorTag}</td>
-                                  <td
-                                    style={{
-                                      background: VisitorColor,
-                                      width: "5%"
-                                    }}
-                                  />
-                                </tr>
-                              );
-                            }
-                          )}
-                        </table>
-                      }
+                      content={<Matches matches={group.Matches} />}
                       title="Partidas"
                     >
                       <Button>Exibir partidas</Button>
@@ -249,7 +210,7 @@ export default class Tournaments extends React.Component {
     );
   }
 
-  renderPanelBody(tournament) {
+  renderPanelBody() {
     const { groupStage, playoffStage, isLoading } = this.state;
 
     if (isLoading) {

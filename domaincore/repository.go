@@ -1,6 +1,5 @@
 package domaincore
 
-// IRepository é a estrutura de um rep. generico
 type IRepository interface {
 	Insert(model IModel) error
 

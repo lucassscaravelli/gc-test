@@ -26,6 +26,8 @@ export default class CreateTournament extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    if (this.props.isLoading) return;
+
     const { name, description } = this.state;
 
     axios
@@ -55,7 +57,7 @@ export default class CreateTournament extends Component {
           <label>Descrição</label>
           <input onChange={this.onChange} required name="description" />
 
-          <button disabled={this.props.isLoadig} type="submit">
+          <button disabled={this.props.isLoading} type="submit">
             Enviar
           </button>
         </form>

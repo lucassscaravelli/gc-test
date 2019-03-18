@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// RunServer cria uma nova instancia do router e starta o servidor
 func RunServer() {
 	mux := mux.NewRouter()
 

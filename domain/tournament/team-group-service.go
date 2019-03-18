@@ -1,11 +1,9 @@
 package tournament
 
-// TeamGroupService representa o service de um torneio
 type TeamGroupService struct {
 	rep *TeamGroupRepository
 }
 
-// NewService cria um novo serviço de torneios
 func NewTeamGroupService() *TeamGroupService {
 	service := TeamGroupService{NewTeamGroupRepository()}
 

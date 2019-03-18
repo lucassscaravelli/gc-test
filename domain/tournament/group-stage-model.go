@@ -38,18 +38,10 @@ type matchInfo struct {
 	VisitorScore int
 }
 
-// GetID retorna o id do model
 func (gs *GroupStage) GetID() uint {
 	return gs.ID
 }
 
-// Validate retorna um erro caso o schema
-// não for válido
 func (gs *GroupStage) Validate() error {
-
-	// if gs.Groups == nil || gs.Matches == nil || gs.Teams == nil {
-	// 	return errors.BadRequest
-	// }
-
 	return nil
 }

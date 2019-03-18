@@ -17,13 +17,10 @@ type TeamGroup struct {
 	Teams []*Team `gorm:"many2many:group_teams" json:"teams"`
 }
 
-// GetID retorna o id do model
 func (tg *TeamGroup) GetID() uint {
 	return tg.ID
 }
 
-// Validate retorna um erro caso o schema
-// não for válido
 func (tg *TeamGroup) Validate() error {
 
 	if tg.Group == "" || tg.Teams == nil {
