@@ -11,13 +11,13 @@
 
 * Criar um novo torneio (pequeno formulário na parte superior do site)
 * Obter a tabela de um torneio
-* Processar a fase de grupos clicando no botão que contém a instrução (Simula todas as partidas da fase)
+* Processar a fase de grupos clicando no botão que contém a instrução (simula todas as partidas da fase)
 * Visualizar a tabela de grupos e suas partidas (clicando no botão no card do grupo)
-* Avançar de fase do playoff clicando no botão que contem a instrução até a final, e visualizar os resultados
+* Avançar a fase do playoff clicando no botão que contem a instrução até a partida final, e visualizar os resultados
 
 ## Observações:
 
-* Os times são gerados aléatoriamente (na criação do primeiro torneio)
+* Os times são gerados aleatoriamente (na criação do primeiro torneio)
 
 ### Arquitetura
 
